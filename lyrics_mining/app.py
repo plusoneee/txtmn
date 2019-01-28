@@ -1,7 +1,6 @@
 import pandas as pd
 import jieba.analyse
 jieba.set_dictionary("dict.txt.big")
-import numpy as np
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 import os 
@@ -9,9 +8,8 @@ import os
 class LyricsAnalyse():
     def __init__(self, stopwords_list, file_path="hebe_lyrics.csv"):
         self.stopwords = {}.fromkeys(stopwords_list)
-        self.songs = pd.read_csv(file_path)
-        # LyricsAnalyse_results/ 圖片存放目錄 
-        if not os.path.isfile('./LyricsAnalyse_results/'):
+        self.songs = pd.read_csv(file_path) 
+        if not os.path.isfile('./LyricsAnalyse_results/'): # LyricsAnalyse_results/ 圖片存放目錄 
             os.makedirs('./LyricsAnalyse_results/', exist_ok=True)
         self.img_save_folder = './LyricsAnalyse_results/'
 
@@ -89,7 +87,7 @@ class LyricsAnalyse():
         wc = self.wordcloud_setting(result_data=get_topK_sentence)
         self.save_photo(wc, 'top100word_from_topK_analyse.jpg')
 
-key = ["一個", "一個", "這樣", "怎麼", "什麼", "Wu", "La", "la", "ah", "oh", "LaLa", "ahLa", "瑪麗"]
+key = ["時候", "那個", "多麽", "多麼", "沒有", "還是", "一個", "一個", "這樣", "怎麼", "什麼", "Wu", "La", "la", "ah", "oh", "LaLa", "ahLa", "瑪麗"]
 anlyse = LyricsAnalyse(stopwords_list=key, file_path='hebe_lyrics.csv')
 anlyse.top100word_from_topK_analyse()
 anlyse.every_song_topK_analyse()
