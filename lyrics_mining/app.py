@@ -13,14 +13,13 @@ class LyricsAnalyse():
             os.makedirs('./LyricsAnalyse_results/', exist_ok=True)
         self.img_save_folder = './LyricsAnalyse_results/'
 
-    def read_lyrics_content_from_csv(self, file_path="hebe_lyrics.csv"):
-        print(':::: Lyrics content processing')
+    def songs_contents_to_string(self, file_path="hebe_lyrics.csv"):
         contents_list = self.songs['content']
         contents = ' '.join(contents_list) # list -> str
         return contents
 
     def analyse_and_extract_tags(self, sentence, topK=10):
-        print(':::: Cut word and extracttags by jieba')
+        print(':::: Cut word and extracttags by jieba!')
         datas = ''
         for word in sentence:
             tags = jieba.analyse.extract_tags(sentence, topK)
@@ -52,8 +51,8 @@ class LyricsAnalyse():
         wc.to_file(self.img_save_folder + save_filename)
         print(':::: Save image finishe!')
 
-    def read_file_get_every_song_topK(self, file_path="hebe_lyrics.csv", k=10):
-        print(":::: Read file and get every song top K word")
+    def get_every_song_topK(self, file_path="hebe_lyrics.csv", k=10):
+        print(":::: get every song top K word")
         contents = self.songs['content']
         datas = ''
         for contant in contents:
@@ -63,26 +62,26 @@ class LyricsAnalyse():
 
     def not_cut_word_analyse(self):
         # 讀取原檔案未斷詞
-        not_wordcut_sentence = self.read_lyrics_content_from_csv()
+        not_wordcut_sentence = self.songs_contents_to_string()
         wc = self.wordcloud_setting(result_data=not_wordcut_sentence)
         self.save_photo(wc, 'not_cut_word_analyse.jpg')
 
     def cut_song_analyse(self):
         # 讀取原檔案且歌詞進行jieba斷詞
-        not_wordcut_sentence = self.read_lyrics_content_from_csv()
+        not_wordcut_sentence = self.songs_contents_to_string()
         seg_contents = self.cut_word_from_jieba(not_wordcut_sentence)
         wc = self.wordcloud_setting(result_data=seg_contents)
         self.save_photo(wc, 'cut_song_analyse.jpg')
 
     def every_song_topK_analyse(self):
         # 讀取每首歌的十大關鍵字
-        get_topK_sentence = self.read_file_get_every_song_topK(k=10)
+        get_topK_sentence = self.get_every_song_topK(k=10)
         wc = self.wordcloud_setting(result_data=get_topK_sentence)
         self.save_photo(wc, 'every_song_topK_analyse.jpg')
 
     def top100word_from_topK_analyse(self):
         # 從每一首歌的十大關鍵字中再取出100個
-        get_topK_sentence = self.read_file_get_every_song_topK(k=10)
+        get_topK_sentence = self.get_every_song_topK(k=10)
         to200_sentence = self.analyse_and_extract_tags(get_topK_sentence, topK=100)
         wc = self.wordcloud_setting(result_data=get_topK_sentence)
         self.save_photo(wc, 'top100word_from_topK_analyse.jpg')
