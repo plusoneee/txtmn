@@ -4,7 +4,7 @@ Python 3
 
 ### Python Requirements
 ```
-dotenv
+python-dotenv
 selenium
 BeautifulSoup
 requests
