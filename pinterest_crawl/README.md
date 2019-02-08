@@ -21,7 +21,7 @@ vim .env
 ```
 * For example:
 ```
-HASHTAGS_DEFUALT = ['banana', 'apple', 'pineapple']
+HASHTAGS_DEFUALT = "rawfood, fruit, banana, apple, pineapple"
 BROWSER_PATH =  '/txtmn/pinterest_crawl/chromedriver'
 CSV_FILE_NAME = 'my_fruit.csv'
 PINTEREST_TOPIC = 'fruit'
