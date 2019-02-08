@@ -13,7 +13,7 @@ re
 csv
 ```
 
-### Configure Setting
+### Configure Settings
 * Edit the file `.env.example`, and save as `.env`.
 ```
 cp .env.example .env
