@@ -6,15 +6,15 @@ import json
 import re
 from selenium.webdriver.chrome.options import Options
 import csv
+
 class CrawlPinterest():
     def __init__(self, hashtags_defualt, browser_path, file_name, topic, img_number):
         self.hashtags_defualt = hashtags_defualt
         self.pin_hrefs = set()
         self.browser_path = browser_path
         chrome_options = Options()
-        chrome_options.add_argument("--window-size=0, 0")
+        chrome_options.add_argument("--window-size=0,0")
         self.browser = webdriver.Chrome(browser_path, chrome_options=chrome_options)
-        
         self.file_name = file_name
         self.topic = topic 
         self.img_number = int(img_number)

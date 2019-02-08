@@ -4,6 +4,7 @@ import os
 
 load_dotenv()
 hashtags_defualt = os.getenv("HASHTAGS_DEFUALT")
+hashtags_defualt = hashtags_defualt.split(',')
 browser_path = os.getenv("BROWSER_PATH")
 file_name = os.getenv("CSV_FILE_NAME")
 topic = os.getenv('PINTEREST_TOPIC')
