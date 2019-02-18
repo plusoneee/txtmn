@@ -55,6 +55,8 @@ class PTTclrawler():
                 'title': results[2].text,
                 'time': results[3].text,
                 'pushs': push_list,
+                 'url': url,
             }
+            print('| * Title:', results[2].text)
             return item
 
