@@ -2,9 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 
 class PTTclrawler():
-    def __init__(self, board='Gossiping', page=100):
-        print('| * 爬取看板：', board)
-        self.page = page
+    def __init__(self, board='Gossiping', page=10):
+        print('| * 爬取看板:', board)
+        self.page = int(page)
         self.now_page = 1
         self.r = requests.session()
         self.board = board
