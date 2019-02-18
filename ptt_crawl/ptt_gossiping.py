@@ -2,13 +2,12 @@ import requests
 from bs4 import BeautifulSoup
 
 class PTTclrawler():
-
-    def __init__(self, board):
+    def __init__(self, board='Gossiping'):
         self.r = requests.session()
         self.board = board
         if self.board == 'Gossiping': 
             payload = {'form':'/bbs/Gossiping/index.html', 'yes':'yes'}
-            res = self.r.post('https://www.ptt.cc/ask/over18', data = payload )
+            res = self.r.post('https://www.ptt.cc/ask/over18', data = payload)
         self.url = 'https://www.ptt.cc/bbs/'+ board + '/index.html'
         
     def get_hrefs_from_page(self):
@@ -41,16 +40,16 @@ class PTTclrawler():
                      'push-ipdatetime':push.select_one('span.push-ipdatetime').text
                 })
             except: print('Push is None')
-                
-        item = {
+        if results:
+            item = {
                 'author': results[0].text,
                 'board': results[1].text,
                 'title': results[2].text,
                 'time': results[3].text,
                 'pushs': push_list,
-        }
-        return item
+            }
+            return item
 
-crawl = PTTclrawler(board='Gossiping')
+crawl = PTTclrawler()
 crawl.get_hrefs_from_page()
         
