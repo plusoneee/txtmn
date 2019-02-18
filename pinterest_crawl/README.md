@@ -1,10 +1,10 @@
 
 ### Dependencies
-Python 3
-
+* Python 3
+* [chromedriver](http://chromedriver.chromium.org)
 ### Python Requirements
 ```
-dotenv
+python-dotenv
 selenium
 BeautifulSoup
 requests
