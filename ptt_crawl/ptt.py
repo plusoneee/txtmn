@@ -2,9 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 
 class PTTclrawler():
-    def __init__(self, board='Gossiping', page=10):
+    def __init__(self, board='Gossiping'):
         print('| * 爬取看板:', board)
-        self.page = int(page)
         self.now_page = 1
         self.r = requests.session()
         self.board = board
@@ -14,23 +13,25 @@ class PTTclrawler():
         self.url = 'https://www.ptt.cc/bbs/'+ board + '/index.html'
         
     def get_hrefs_from_page(self):
-        print('| * Page Number ', self.now_page)
-        res = self.r.get(self.url)
-        soup = BeautifulSoup(res.text, "lxml")
-        results = soup.select("div.title")
-        up_page_href = soup.select("div.btn-group a")[3].get('href')
-        self.url = 'https://www.ptt.cc' + up_page_href
-        for item in results:
-            a_item = item.select_one("a")
-            title = item.text
-            if a_item:
-                url = 'https://www.ptt.cc'+ a_item.get('href')
-                self.crawl_data_from_article(url)
-        self.now_page += 1
-        if self.now_page <= self.page:
-            up_page_url = 'https://www.ptt.cc' + up_page_href
-            self.get_hrefs_from_page()
-        
+        while True:
+            self.datas = []
+            print('| * Page Number ', self.now_page)
+            res = self.r.get(self.url)
+            soup = BeautifulSoup(res.text, "lxml")
+            results = soup.select("div.title")
+            up_page_href = soup.select("div.btn-group a")[3].get('href')
+            self.url = 'https://www.ptt.cc' + up_page_href
+            for item in results:
+                a_item = item.select_one("a")
+                title = item.text
+                if a_item:
+                    url = 'https://www.ptt.cc'+ a_item.get('href')
+                    row = self.crawl_data_from_article(url)
+                    self.datas.append(row)
+            self.now_page= self.now_page + 1
+    
+            return self.datas
+
     def crawl_data_from_article(self, url):
         res = self.r.get(url)
         push_list = []
@@ -46,7 +47,8 @@ class PTTclrawler():
                      'push-ipdatetime':push.select_one('span.push-ipdatetime').text
                 })
             except: pass
-        if results:
+
+        if results and len(results)>3:
             item = {
                 'author': results[0].text,
                 'board': results[1].text,
@@ -55,3 +57,4 @@ class PTTclrawler():
                 'pushs': push_list,
             }
             return item
+
