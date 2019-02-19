@@ -73,7 +73,10 @@ class PTTclrawler():
                 if_star = main_content_list[idx].find('※ 發信站')
                 if if_star != -1:
                     stop_point = idx
-            content = ' '.join(main_content_list[2:stop_point-3])
+            if stop_point:
+                content = ' '.join(main_content_list[2:stop_point-3])
+            else:
+                content = ' '.join(main_content_list[2:-3])
     
             item = {
                 'author': results[0].text,
