@@ -68,15 +68,18 @@ class PTTclrawler():
         if results and len(results)>3:
 
             main_content = soup.select_one('div#main-container').text
-            main_content_list = main_content.split('\n')
-            if main_content_list:
-                for idx in range(len(main_content_list)):
-                    if_star = main_content_list[idx].find('※ 發信站')
-                    if if_star != -1:
-                        stop_point = idx
-                content = ' '.join(main_content_list[2:stop_point-3])
-            else:
+            try:
+                main_content_list = main_content.split('\n')
+                if main_content_list:
+                    for idx in range(len(main_content_list)):
+                        if_star = main_content_list[idx].find('※ 發信站')
+                        if if_star != -1:
+                            stop_point = idx
+                    content = ' '.join(main_content_list[2:stop_point-3])
+                
+            except:
                 content = []
+                
             item = {
                 'author': results[0].text,
                 'board': results[1].text,
