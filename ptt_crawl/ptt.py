@@ -8,7 +8,7 @@ class SelectSaver():
         f = csv.writer(open("./ptt.csv", "a+"))
         f.writerow(["author", "board", "title", "url", "time", "content", "pushs", "push_num"])
         for item in datas:
-            if push_number:
+            if item['pushs']:
                 push_number = len(item['pushs'])
             else:
                 push_number = 0
