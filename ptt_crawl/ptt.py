@@ -1,5 +1,22 @@
 import requests
 from bs4 import BeautifulSoup
+import json
+import csv
+class SelectSaver():
+    def to_csv(self, datas):
+        # obj = json.loads(datas)
+        f = csv.writer(open("./ptt.csv", "w"))
+        f.writerow(["author", "board", "title", "url", "time", "content", "pushs", "push_num"])
+        for item in datas:
+            push_number = len(item['pushs'])
+            f.writerow([item["author"],
+                        item["board"],
+                        item["title"],
+                        item["time"],
+                        item['url'],
+                        item["content"],
+                        item["pushs"],
+                        len(item['pushs'])])
 
 class PTTclrawler():
     def __init__(self, board='Gossiping'):
@@ -49,13 +66,23 @@ class PTTclrawler():
             except: pass
 
         if results and len(results)>3:
+
+            main_content = soup.select_one('div#main-container').text
+            main_content_list = main_content.split('\n')
+            for idx in range(len(main_content_list)):
+                if_star = main_content_list[idx].find('※ 發信站')
+                if if_star != -1:
+                    stop_point = idx
+            content = ' '.join(main_content_list[2:stop_point-3])
+    
             item = {
                 'author': results[0].text,
                 'board': results[1].text,
                 'title': results[2].text,
                 'time': results[3].text,
+                'content':content,
                 'pushs': push_list,
-                 'url': url,
+                'url': url,
             }
             print('| * Title:', results[2].text)
             return item

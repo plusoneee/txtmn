@@ -1,15 +1,19 @@
 import requests
 from bs4 import BeautifulSoup
-from ptt import PTTclrawler
+from ptt import PTTclrawler, SelectSaver
 from dotenv import load_dotenv
 import os 
+import json
 
 def main():
     print('| * Total page number:', page_number)
     crawl = PTTclrawler(board=board)
+    saver = SelectSaver()
     for i in range(0, page_number):
         datas = crawl.get_hrefs_from_page()
-        print('| * Artical Number:', len(datas))
+        s = saver.to_csv(datas)
+        
+
 
 if __name__ == "__main__":
     load_dotenv()
