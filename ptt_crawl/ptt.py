@@ -3,8 +3,8 @@ from bs4 import BeautifulSoup
 import json
 import csv
 class SelectSaver():
-    def to_csv(self, datas):
-        f = csv.writer(open("./ptt.csv", "a+"))
+    def to_csv(self, datas, file_path):
+        f = csv.writer(open(file_path, "a+"))
         for item in datas:
             if item:
                 if item['pushs']:
@@ -31,6 +31,28 @@ class PTTclrawler():
             res = self.r.post('https://www.ptt.cc/ask/over18', data = payload)
         self.url = 'https://www.ptt.cc/bbs/'+ board + '/index.html'
         
+    def search_from_keyword(self, keyword):
+        while True:
+            self.datas = []
+            if self.now_page == 1:
+                self.url = 'https://www.ptt.cc/bbs/'+ self.board +'/search?q='+ keyword
+            print('| * Page Number ', self.now_page)
+            res = self.r.get(self.url)
+            soup = BeautifulSoup(res.text, "lxml")
+            results = soup.select("div.title")
+            
+            for item in results:
+                a_item = item.select_one("a")
+                title = item.text
+                if a_item:
+                    url = 'https://www.ptt.cc'+ a_item.get('href')
+                    row = self.crawl_data_from_article(url)
+                    self.datas.append(row)
+            self.now_page= self.now_page + 1
+            self.url = 'https://www.ptt.cc/bbs/'+ self.board +'/search?page='+ str(self.now_page) +'&q='+ keyword
+            
+            return self.datas
+
     def get_hrefs_from_page(self):
         while True:
             self.datas = []
@@ -48,7 +70,6 @@ class PTTclrawler():
                     row = self.crawl_data_from_article(url)
                     self.datas.append(row)
             self.now_page= self.now_page + 1
-    
             return self.datas
 
     def crawl_data_from_article(self, url):
