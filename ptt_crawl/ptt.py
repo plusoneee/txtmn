@@ -5,7 +5,7 @@ import csv
 class SelectSaver():
     def to_csv(self, datas):
         # obj = json.loads(datas)
-        f = csv.writer(open("./ptt.csv", "w+"))
+        f = csv.writer(open("./ptt.csv", "a+"))
         f.writerow(["author", "board", "title", "url", "time", "content", "pushs", "push_num"])
         for item in datas:
             push_number = len(item['pushs'])
