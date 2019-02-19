@@ -8,7 +8,8 @@ class SelectSaver():
         f = csv.writer(open("./ptt.csv", "a+"))
         f.writerow(["author", "board", "title", "url", "time", "content", "pushs", "push_num"])
         for item in datas:
-            push_number = len(item['pushs'])
+            if push_number:
+                push_number = len(item['pushs'])
             f.writerow([item["author"],
                         item["board"],
                         item["title"],
@@ -16,7 +17,7 @@ class SelectSaver():
                         item['url'],
                         item["content"],
                         item["pushs"],
-                        len(item['pushs'])])
+                        push_number])
 
 class PTTclrawler():
     def __init__(self, board='Gossiping'):
