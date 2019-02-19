@@ -4,22 +4,21 @@ import json
 import csv
 class SelectSaver():
     def to_csv(self, datas):
-        # obj = json.loads(datas)
         f = csv.writer(open("./ptt.csv", "a+"))
-        f.writerow(["author", "board", "title", "url", "time", "content", "pushs", "push_num"])
         for item in datas:
-            if item['pushs']:
-                push_number = len(item['pushs'])
-            else:
-                push_number = 0
-            f.writerow([item["author"],
-                        item["board"],
-                        item["title"],
-                        item["time"],
-                        item['url'],
-                        item["content"],
-                        item["pushs"],
-                        push_number])
+            if item:
+                if item['pushs']:
+                    push_number = len(item['pushs'])
+                else:
+                    push_number = 0
+                f.writerow([item["author"],
+                            item["board"],
+                            item["title"],
+                            item["time"],
+                            item['url'],
+                            item["content"],
+                            item["pushs"],
+                            push_number])
 
 class PTTclrawler():
     def __init__(self, board='Gossiping'):
