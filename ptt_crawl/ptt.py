@@ -10,6 +10,8 @@ class SelectSaver():
         for item in datas:
             if push_number:
                 push_number = len(item['pushs'])
+            else:
+                push_number = 0
             f.writerow([item["author"],
                         item["board"],
                         item["title"],
