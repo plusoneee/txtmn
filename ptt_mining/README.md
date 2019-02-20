@@ -3,7 +3,7 @@
 * Analysis
 
 ### Crawl
-Use [Crawler](./crawler) to get PTT's data (csv format), and put it in [datasets](./datasets).
+Use [Crawler](./crawler) to get PTT's data (csv format) in [datasets](./datasets).
 
 ### Analysis
 Use [Analysis](./analysis) to analyze PTT's data.
