@@ -14,7 +14,7 @@ def pushs_to_dict(d):
         pushs = demjson.decode(every_artical__pushs)
     return pushs
 
-def omments_classification_by_pushtag(pushs):
+def comments_classification_by_pushtag(pushs):
     humming_comments = []
     promote_comments = []
     for item in pushs:
@@ -84,7 +84,7 @@ def filter_short_segs(sorted_by_value):
     print('噓:',results[:10])
 
 
-# omments_classification_by_pushtag(pushs_to_dict(read_data()))
+# comments_classification_by_pushtag(pushs_to_dict(read_data()))
 # 直接使用checkpoint的資料開始執行
 p, h = read_coments_file()
 p_segs, h_segs, all_segs = split_comments_to_seg(p, h)
