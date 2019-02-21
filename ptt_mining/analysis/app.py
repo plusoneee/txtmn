@@ -5,7 +5,7 @@ import jieba
 import ast
 import re
 
-def read_data(path='../dataset/ptt.csv'):
+def read_data(path='../datasets/ptt.csv'):
     headers_name = ["author", "board", "title", "time", "url", "content", "pushs", "push_number"]
     return pd.read_csv(path, names = ["author", "board", "title", "time", "url", "content", "pushs", "push_number"] )    
 
@@ -30,13 +30,13 @@ def comments_classification_by_pushtag(pushs):
         promote_comments = str(promote_comments)
         f.write(promote_comments)
 
-# 分別讀取推(p)與噓(h)評論的list
+# 分別讀取推(p)與噓(h)評論的list 
 def read_coments_file():
     print('Read comment list file')
-    with open('./checkpoint_txt_results/promote_comments_list.txt') as f:
+    with open('./checkpoint_txt_results/promote_comments.txt') as f:
     # Convert string representation of list to list
         p = ast.literal_eval(f.read()) 
-    with open('./checkpoint_txt_results/humming_comments_list.txt') as f:
+    with open('./checkpoint_txt_results/humming_comments.txt') as f:
     # Convert string representation of list to list
         h = ast.literal_eval(f.read()) 
     return p, h
@@ -84,7 +84,7 @@ def filter_short_segs(sorted_by_value):
     print('噓:',results[:10])
 
 
-# comments_classification_by_pushtag(pushs_to_dict(read_data()))
+comments_classification_by_pushtag(pushs_to_dict(read_data()))
 # 直接使用checkpoint的資料開始執行
 p, h = read_coments_file()
 p_segs, h_segs, all_segs = split_comments_to_seg(p, h)
