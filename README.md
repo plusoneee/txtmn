@@ -1,6 +1,6 @@
-## txtmn
-* [lyrics mining](./lyrics_mining/)
-* [pinterest crawl](./pinterest_crawl/)
-* [ptt_mining](./ptt_mining/)
-    * [Crawler](./ptt_mining/crawler)
-    * [Analysis](./ptt_mining/analysis/)
+# txtmn
+### [lyrics mining](./lyrics_mining/)
+### [Pinterest crawl](./pinterest_crawl/)
+### [PTT mining](./ptt_mining/)
+* [Crawler](./ptt_mining/crawler)
+* [Analysis](./ptt_mining/analysis/)
