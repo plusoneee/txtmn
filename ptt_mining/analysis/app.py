@@ -54,7 +54,7 @@ def split_comments_to_seg(p, h):
     print('| * Split humming_comments and promote_comments 2segs list')
     p_segs = []
     h_segs = []
-    r1 = '[a-zA-Z0-9’!#$%&()*+？！[\\]^_`{|}~]+'
+    r1 = '[a-zA-Z0-9’!#$%&()*.+？！[\\]^_`{|}~]+'
     # jieba.load_userdict("./userdict.txt")
     for sentence in p:
         sentence = re.sub(r1, '', sentence)
@@ -92,7 +92,7 @@ def filter_short_segs(sorted_by_value):
     print('噓:',results[:10])
 
 
-comments_classification_by_pushtag(pushs_to_dict(read_data()))
+#comments_classification_by_pushtag(pushs_to_dict(read_data()))
 # 直接使用checkpoint的資料開始執行
 p, h = read_coments_file()
 p_segs, h_segs, all_segs = split_comments_to_seg(p, h)
